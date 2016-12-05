@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<nav>
+		<div class="nav-wrapper blue ">
+			<h:link value="menu" outcome="#" data-activates="nav-mob"
+				class="button-collapse" />
+			<h:link value="MiniReddit" outcome="#" class="brand-logo" />
+			<ul id="nav-web" class="right hide-on-med-and-down">
+				<li class="myLi"><a id="usernameTitleBar"
+					class='dropdown-button hide' href='#' data-activates='userdropdown'>
+				</a> <!-- Dropdown Structure -->
+					<ul id='userdropdown' class='dropdown-content'>
+						<li><a href="#!" id="signout">Sign out</a></li>
+					</ul></li>
+				<li class="myLi"><h:link value="New User" id="mmode3"
+						outcome="#modal3" onclick="openSignUpModal();" /></li>
+				<li class="myLi"><h:link value="Sign In" id="mmode2"
+						outcome="#modal2" onclick="openLoginModal();" /></li>
+				<li class="myLi"><h:link value="Post" id="mmode1"
+						outcome="#mmode1" /></li>
+			</ul>
+
+			<ul id="nav-mob" class="side-nav">
+				<li><h:form>
+						<div class="input-field">
+							<h:inputText id="msearch" type="search" />
+							<label for="msearch"><i class="material-icons black-text">search</i></label>
+							<i class="material-icons">close</i>
+						</div>
+					</h:form></li>
+				<li><a id="musernameTitleBar" class='dropdown-button hide'
+					href='#' data-activates='muserdropdown'> </a> <!-- Dropdown Structure -->
+					<ul id='muserdropdown' class='dropdown-content'>
+						<li><a href="#!" id="msignout">Sign out</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</nav>
+</h:body>
+</html>

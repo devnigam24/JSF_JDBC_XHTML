@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<div class="container" id="posts">
+		<ui:repeat value="#{postsBean.fetchAllPosts()}" var="item">
+	        <h:outputText styleClass="post" value="#{item.getPost()}" /> posted by --> 	        
+	        <h:outputText styleClass="postedBy" value="#{item.getUserName()}" /> <br></br>
+	        <h:outputText value="No Comments till now" rendered="#{empty item.getComments()}" /><br></br>
+	        <ui:repeat value="#{item.getComments()}" var="varialble">
+	        	<h:outputText styleClass="comments" value="#{varialble.getComments()}" /> commented by--> 
+	        	<h:outputText styleClass="commentedBy" value="#{varialble.getCommentedBy()}" /><br></br>
+	        </ui:repeat> 
+	    </ui:repeat>		
+	</div>
+</h:body>
+</html>

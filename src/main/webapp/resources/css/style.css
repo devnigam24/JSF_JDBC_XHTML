@@ -23,9 +23,21 @@
 .error{
 	color: orangered;
     font-size: x-large;
-    text-align: -webkit-auto;
+    text-align: -webkit-center;
     align-items: center;
 }
+
 .paddingtop10{
 	padding-top: 0.5em !important;
 }
+.myMiddle{
+	position: absolute;
+    left: 44%;
+    text-transform: uppercase;
+    font-size: x-large;
+    font-weight: bold;
+}
+.brand-logo{
+	padding-left: 1em !important;
+}
+input

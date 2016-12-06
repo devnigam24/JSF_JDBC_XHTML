@@ -4,7 +4,6 @@
 <h:body>
 <div id="modal2" class="modal">
 	<h:form prependId="false" class="col s12">
-		<h:inputHidden value="login" id="action" />
         <div class="modal-content">
             <h4>Sign in</h4>
             <p>Sign in MiniReddit</p>
@@ -21,12 +20,10 @@
                         <label for="sipassword">Password</label>
                     </div>
                 </div>
-                <p id="modalsigninerror" class="hide red-text text-darken-2">Looks like you mistyped your username or password.</p>
-                <p id="signinSuccess" class="hide green-text text-darken-1">Sign in Successfull. Welcome back.</p>
             </div>
         </div>
         <div class="modal-footer">
-            <h:commandButton name="submitButton" class="btn waves-effect waves-green btn-flat paddingtop10" actionListener="#{userBean.submit}"
+            <h:commandButton name="submitButton" class="btn waves-effect waves-green btn-flat paddingtop10" actionListener="#{userBean.submit('login')}"
 					value="Login" />
             <h:button name="closeButton" onclick="closeModal('modal3');" class="btn waves-effect waves-green btn-flat paddingtop10" href="#" value="Close"/>
         </div>

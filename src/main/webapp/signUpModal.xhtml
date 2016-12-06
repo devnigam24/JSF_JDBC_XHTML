@@ -4,7 +4,6 @@
 <h:body>
 	<div id="modal3" class="modal">
 		<h:form prependId="false" class="col s12">
-			<h:inputHidden value="signUp" id="action" />
 			<div class="modal-content">
 				<h4>New User?</h4>
 				<p>Create your unique username on MiniReddit</p>
@@ -24,7 +23,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<h:commandButton name="submitButton" class="btn waves-effect waves-green btn-flat paddingtop10" actionListener="#{userBean.submit}"
+				<h:commandButton name="submitButton" class="btn waves-effect waves-green btn-flat paddingtop10" actionListener="#{userBean.submit('signUp')}"
 					value="Register" />
 				<h:button name="closeButton" onclick="closeModal('modal3');" class="btn waves-effect waves-green btn-flat paddingtop10" href="#" value="Close"/>
 			</div>

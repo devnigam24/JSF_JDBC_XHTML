@@ -22,6 +22,11 @@ $(document).ready(function() {
         $("#postError").toggleClass("hide",true);
     });
     
+    $("#mmode4").on("click", function() {
+    	$('#modal4').openModal();
+    	$("#postError").toggleClass("hide",true);
+    });
+    
     $(".button-collapse").sideNav();       
 });
 

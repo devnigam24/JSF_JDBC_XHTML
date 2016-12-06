@@ -18,7 +18,6 @@ public class RedditDao {
 			} else {
 				System.out.println("Problem with creating connection");
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
@@ -28,9 +27,29 @@ public class RedditDao {
 		return this.con;
 	}
 	
-	protected int createUsertable(){
+	protected int hasUsertable(){
 		try {
 			PreparedStatement ps = con.prepareStatement("CREATE TABLE  IF NOT EXISTS ALLUSERS(USERNAME VARCHAR(50) NOT NULL PRIMARY KEY,PASSWORD VARCHAR(50) NOT NULL);");
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int hasPostsTable() {
+		try {
+			PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS USERSPOST (USERNAME VARCHAR(50) NOT NULL,POSTS VARCHAR(150) NOT NULL, PRIMARY KEY(USERNAME,POSTS));");
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int hasCommentsTable() {
+		try {
+			PreparedStatement ps = con.prepareStatement("CREATE TABLE IF NOT EXISTS USERSCOMMENTS (POSTS VARCHAR(150) NOT NULL,COMMENTS VARCHAR(100) NOT NULL,COMMENTEDUSER VARCHAR(50),PRIMARY KEY(POSTS,COMMENTS));");
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

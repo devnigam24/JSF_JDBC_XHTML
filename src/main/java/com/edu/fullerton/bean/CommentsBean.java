@@ -47,7 +47,9 @@ public class CommentsBean implements Serializable{
 	public void storeThisCommentForThisPost(String commentedOnPost){
 		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();		
 		ErrorAndMessages em = new ErrorAndMessages();
-		//this.comments = req.getParameter("comments");
+		if(req.getParameter("comments") != null ){
+			this.comments = req.getParameter("comments");
+		}
 		if(this.comments != null && !this.comments.equals("")){
 			this.commentedOnPost = commentedOnPost.trim();
 			this.commentedBy = ((UserBean)req.getSession().getAttribute("userInsession")).getUserName();

@@ -2,15 +2,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" 
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:body>
-	
+<h:body>	
 	<div class="row">
 		<ui:repeat value="#{postsBean.fetchAllPosts()}" var="item">
 	        <div class="col s12 m6">
 	          <div class="card blue-grey darken-1">
 	            <div class="card-content white-text">
 	            	<span class="card-title"><h:outputText styleClass="postedBy" value="#{item.getpostUserName()}" /></span>
-	              	<a class="waves-effect waves-light btn right" onclick="openModal(this);">Add Comments</a>
+	            	 <ui:fragment rendered="#{sessionScope.userInsession.userName != null}">
+	              		<a class="waves-effect waves-light btn right" onclick="openModal(this);">Add Comments</a>
+	              	</ui:fragment>
 	              	<div class="modal modal-fixed-footer">
 						<h:form prependId="false" class="col s12">
 						     <div class="modal-content">
@@ -18,15 +19,14 @@
 						         <p style="color: black;">Remember you can have only 100 characters in comments</p>
 						         <div class="row">
 			                         <div class="input-field col s12" id="myCommentArea">
-			                             <h:inputTextarea style="color: black;" value="#{commentBean.comments}" 
-			                             	class="materialize-textarea" />
+			                             <h:inputTextarea style="color: black;" id="comments" name="comments" value="#{commentBean.comments}" class="materialize-textarea" />
 			                             <label for="textarea1">Content</label>
 			                         </div>
 						         </div>
 						     </div>
 						     <div class="modal-footer">
 						     	 <c:set var="paramToPass" value="#{item.getPost()}"></c:set>
-						         <h:commandButton name="comment" class="btn waves-effect waves-green btn-flat paddingtop10" 
+						         <h:commandButton name="comment" class="btn waves-effect waves-green btn-flat paddingtop10" onclick="attachCommentValue(this)"
 						         			actionListener="#{commentBean.storeThisCommentForThisPost(paramToPass)}" value="Post" />
 						         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
 						     </div>

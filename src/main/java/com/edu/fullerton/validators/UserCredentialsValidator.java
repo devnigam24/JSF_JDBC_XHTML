@@ -40,7 +40,7 @@ public class UserCredentialsValidator {
 	private static Boolean validateLoginAndSignUp(String userName, String password, ErrorAndMessages em,
 			String action) {
 		UserDao obj = new UserDao();
-		if (obj != null) {
+		if (obj.getConnection() != null) {
 			if (action.equals("signUp")) {
 				Boolean stored = obj.storeUserIntoDB(userName, password);
 				if (null != stored && stored == true) {

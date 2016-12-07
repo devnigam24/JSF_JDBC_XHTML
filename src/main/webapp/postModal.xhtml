@@ -3,41 +3,30 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
 <div id="modal1" class="modal modal-fixed-footer">
-     <div class="modal-content">
-         <h4>Post a news</h4>
-         <div class="row">
-             <h:form class="col s12">
-                 <div class="row">
-                     <div class="input-field col s12">
-                         <h:inputText id="headline" type="text" class="validate" />
-                         <label for="email">Headline</label>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col s12">
-                         <div class="row">
-                             <div class="input-field col s12">
-                                 <h:inputTextarea id="newsContent" class="materialize-textarea" />
-                                 <label for="textarea1">Content</label>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-                 <p id="postError" class="hide red-text text-darken-1">News headline and content requied.</p>
-                 <div class="row">
-                     <div class="input-field col s12">
-                         <h:inputText id="newsURL" type="text" class="validate" />
-                         <label for="email">URL</label>
-                     </div>
-                 </div>
-             </h:form>
-             
-         </div>
-     </div>
-     <div class="modal-footer">
-         <a href="#!" onclick="postNews();" class=" modal-action waves-effect waves-green btn-flat">Post</a>
-         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-     </div>
+	<h:form prependId="false" class="col s12">
+		<h:inputHidden value="#{sessionScope.userInsession.userName}" id="postUserName" />
+	     <div class="modal-content">
+	         <h4>Post a news</h4>
+	         <p>Remember you can have only 150 characters in Posts</p>
+	         <div class="row">
+	             <div class="row">
+	                 <div class="col s12">
+	                     <div class="row">
+	                         <div class="input-field col s12">
+	                             <h:inputTextarea id="newsContent" value="#{postsBean.post}" class="materialize-textarea" />
+	                             <label for="textarea1">Content</label>
+	                         </div>
+	                     </div>
+	                 </div>
+	             </div>
+	         </div>
+	     </div>
+	     <div class="modal-footer">
+	         <h:commandButton name="Post" class="btn waves-effect waves-green btn-flat paddingtop10" 
+	         			actionListener="#{postsBean.storeThisPostInDB()}" value="Post" />
+	         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+	     </div>
+     </h:form>
  </div>
  </h:body>
  </html>

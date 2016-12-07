@@ -1,5 +1,6 @@
 package com.edu.fullerton.dao;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,5 +15,4 @@ public interface DAO {
 	ArrayList<PostsBean> fetchAllUsersPost();
 	
 	Boolean fetchMyPosts(String userName);
-
 }

@@ -16,14 +16,14 @@ import com.edu.fullerton.errors.ErrorAndMessages;
 public class PostsBean {
 	
 	private String post;
-	private String userName;
+	private String postUserName;
 	private ArrayList<CommentsBean> comments;
 	
 	public PostsBean(){}
 	
-	public PostsBean(String post,String userName,ArrayList<CommentsBean> comments){
+	public PostsBean(String post,String postUserName,ArrayList<CommentsBean> comments){
 		this.post=post;
-		this.userName=userName;
+		this.postUserName=postUserName;
 		this.comments=comments;
 	}	
 	
@@ -33,11 +33,11 @@ public class PostsBean {
 	public void setPost(String post) {
 		this.post = post;
 	}
-	public String getUserName() {
-		return userName;
+	public String getpostUserName() {
+		return postUserName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setpostUserName(String postUserName) {
+		this.postUserName = postUserName;
 	}
 	public ArrayList<CommentsBean> getComments() {
 		return comments;
@@ -50,12 +50,34 @@ public class PostsBean {
 		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		ErrorAndMessages em = new ErrorAndMessages();
 		UserDao obj = new UserDao();
-		if (obj != null) {
+		if (obj.getConnection() != null) {
 			return obj.fetchAllUsersPost();
 		} else {
 			em.addError("Server Down!! database Connection Failed");
 			ErrorAndMessages.serErrorsAndMessages(req, em);
 			return null;
 		}
+	}
+	
+	public ArrayList<PostsBean> storeThisPostInDB(){
+		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		this.postUserName = req.getParameter("postUserName").trim();
+		ErrorAndMessages em = new ErrorAndMessages();
+		UserDao obj = new UserDao();
+		if (obj.getConnection() != null) {			
+			Boolean stored = obj.storeThisPostInDB(postUserName,post);
+			if (null != stored && stored == true) {
+				em.addMessage("Post Posted successfully");
+			} else if (null != stored && stored == false) {
+				em.addError("Server Down!! database Connection Failed");
+			} else {
+				em.addError("Sorry Somebody already took that Posts");
+			}
+		} else {
+			em.addError("Server Down!! database Connection Failed");
+			return null;
+		}
+		ErrorAndMessages.serErrorsAndMessages(req, em);
+		return fetchAllPosts();
 	}
 }

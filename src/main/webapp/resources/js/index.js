@@ -34,3 +34,13 @@ function closeModal(moddelId){
 	$('#'+moddelId).toggle();
 	return;
 }
+
+function openModal(e){
+	$(e).next().openModal();
+}
+
+function attachCommentValue(e){
+	var thisForm = e.parentNode.parentNode.parentNode;
+	var post = thisForm.childNodes[7].childNodes[5].childNodes[1].childNodes[0].value.trim();
+	$(thisForm).attr('action',$(thisForm).attr('action') + "?comments="+post);
+}

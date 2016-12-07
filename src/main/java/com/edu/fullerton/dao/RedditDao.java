@@ -23,7 +23,7 @@ public class RedditDao {
 		}
 	}
 	
-	protected Connection getConnection(){
+	public Connection getConnection(){
 		return this.con;
 	}
 	

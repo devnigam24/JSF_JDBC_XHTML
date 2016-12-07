@@ -1,17 +1,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:body>
-	<div class="container" id="posts">
+	
+	<div class="row">
 		<ui:repeat value="#{postsBean.fetchAllPosts()}" var="item">
-	        <h:outputText styleClass="post" value="#{item.getPost()}" /> posted by --> 	        
-	        <h:outputText styleClass="postedBy" value="#{item.getUserName()}" /> <br></br>
-	        <h:outputText value="No Comments till now" rendered="#{empty item.getComments()}" /><br></br>
-	        <ui:repeat value="#{item.getComments()}" var="varialble">
-	        	<h:outputText styleClass="comments" value="#{varialble.getComments()}" /> commented by--> 
-	        	<h:outputText styleClass="commentedBy" value="#{varialble.getCommentedBy()}" /><br></br>
-	        </ui:repeat> 
-	    </ui:repeat>		
-	</div>
+	        <div class="col s12 m6">
+	          <div class="card blue-grey darken-1">
+	            <div class="card-content white-text">
+	            	<span class="card-title"><h:outputText styleClass="postedBy" value="#{item.getpostUserName()}" /></span>
+	              	<a class="waves-effect waves-light btn right" onclick="openModal(this);">Add Comments</a>
+	              	<div class="modal modal-fixed-footer">
+						<h:form prependId="false" class="col s12">
+						     <div class="modal-content">
+						         <h4 style="color: black;">Add comment</h4>
+						         <p style="color: black;">Remember you can have only 100 characters in comments</p>
+						         <div class="row">
+			                         <div class="input-field col s12" id="myCommentArea">
+			                             <h:inputTextarea style="color: black;" value="#{commentBean.comments}" 
+			                             	class="materialize-textarea" />
+			                             <label for="textarea1">Content</label>
+			                         </div>
+						         </div>
+						     </div>
+						     <div class="modal-footer">
+						     	 <c:set var="paramToPass" value="#{item.getPost()}"></c:set>
+						         <h:commandButton name="comment" class="btn waves-effect waves-green btn-flat paddingtop10" 
+						         			actionListener="#{commentBean.storeThisCommentForThisPost(paramToPass)}" value="Post" />
+						         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+						     </div>
+					     </h:form>
+					 </div>
+	              	<p><h:outputText styleClass="post" value="#{item.getPost()}" /></p>
+	            </div>
+	            <ui:fragment rendered="#{empty item.getComments()}">
+		            <div class="card-action">
+		            	<a>No Comments till now</a>
+		            </div>
+	            </ui:fragment>
+	             <ui:repeat value="#{item.getComments()}" var="varialble">
+		            <div class="card-action">
+		              <a><h:outputText value="#{varialble.getComments()}" /> ++>></a>
+		              <a><h:outputText value="#{varialble.getCommentedBy()}" /></a><br></br>
+		            </div>
+	            </ui:repeat>
+	          </div>
+	        </div>
+        </ui:repeat>
+      </div>
+    
+    
 </h:body>
 </html>

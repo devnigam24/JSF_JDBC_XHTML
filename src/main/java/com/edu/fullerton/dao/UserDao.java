@@ -38,6 +38,7 @@ public class UserDao extends RedditDao implements DAO{
 				}				
 			}finally{try {
 				con.close();
+				System.out.println("connection closed successfully");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}}
@@ -63,6 +64,7 @@ public class UserDao extends RedditDao implements DAO{
 			e.printStackTrace();
 		}finally{try {
 			con.close();
+			System.out.println("connection closed successfully");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}}
@@ -95,6 +97,7 @@ public class UserDao extends RedditDao implements DAO{
 				}				
 			}finally{try {
 				con.close();
+				System.out.println("connection closed successfully");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}}
@@ -114,7 +117,7 @@ public class UserDao extends RedditDao implements DAO{
 			while(set.next()){
 				userName = set.getString("COMMENTEDUSER");
 				comments = set.getString("COMMENTS");
-				commentsList.add(new CommentsBean(userName,comments));
+				commentsList.add(new CommentsBean(userName,comments,posts));
 			}			
 			return commentsList;
 		}catch(SQLException e){
@@ -126,6 +129,56 @@ public class UserDao extends RedditDao implements DAO{
 	public Boolean fetchMyPosts(String userName) {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
 
+	public Boolean storeThisPostInDB(String postUserName, String post) {
+		try {
+			PreparedStatement ps = con.prepareStatement("INSERT INTO USERSPOST(USERNAME,POSTS) VALUES(?,?);");
+			ps.setString(1, postUserName);
+			ps.setString(2, post);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			if (e instanceof SQLIntegrityConstraintViolationException) {
+				e.printStackTrace();
+				return null;
+			} else {
+				e.printStackTrace();
+				return false;
+			}
+		} finally {
+			try {
+				con.close();
+				System.out.println("connection closed successfully");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		}
+
+	public Boolean storeThisCommentForThisPost(String comments, String commentedOnPost, String commentedBy) {
+		try {
+			PreparedStatement ps = con.prepareStatement("INSERT INTO USERSCOMMENTS (POSTS,COMMENTS,COMMENTEDUSER) VALUES (?,?,?);");
+			ps.setString(1, commentedOnPost);
+			ps.setString(2, comments);
+			ps.setString(3, commentedBy);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			if (e instanceof SQLIntegrityConstraintViolationException) {
+				e.printStackTrace();
+				return null;
+			} else {
+				e.printStackTrace();
+				return false;
+			}
+		} finally {
+			try {
+				con.close();
+				System.out.println("connection closed successfully");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		}
 }
